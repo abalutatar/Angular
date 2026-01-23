@@ -1,0 +1,84 @@
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/mcp.json
+.history/*
+
+# Miscellaneous
+/.angular/cache
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+__screenshots__/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Folder z zależnościami (bardzo ciężki, instalowany przez npm install)
+node_modules/
+
+# Pliki generowane podczas budowania aplikacji (produkcja/testy)
+/dist/
+/.angular/
+
+# Pliki logów (pomocne przy debugowaniu błędów npm)
+npm-debug.log
+yarn-error.log
+logs
+*.log
+
+# Pliki tymczasowe i systemowe
+.DS_Store
+Thumbs.db
+
+# Folder na raporty z testów (Karma/Jasmine/Cypress)
+/coverage/
+/cypress/screenshots/
+/cypress/videos/
+
+# Konfiguracje edytorów (VS Code, WebStorm)
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Pliki środowiskowe (często zawierają klucze API - warto je trzymać tylko lokalnie)
+src/environments/environment.custom.ts
+.env
+.env.*
+
+# Pliki pomocnicze systemu operacyjnego
+desktop.ini

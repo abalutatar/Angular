@@ -1,0 +1,19 @@
+<div class="comments-section mt-3">
+  <h6>Komentarze</h6>
+
+  <div *ngFor="let comment of comments" class="mb-2 p-2 border rounded">
+    <strong>{{ comment.author }}</strong>
+    <small class="text-muted">{{ comment.date | date:'short' }}</small>
+    <p class="mb-0">{{ comment.text }}</p>
+  </div>
+
+  <form (ngSubmit)="addComment()" class="mt-3">
+    <div class="mb-2">
+      <input type="text" class="form-control" placeholder="Twoje imię" [(ngModel)]="newAuthor" name="author" required>
+    </div>
+    <div class="mb-2">
+      <textarea class="form-control" placeholder="Twój komentarz" [(ngModel)]="newText" name="text" rows="2" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary btn-sm">Dodaj komentarz</button>
+  </form>
+</div>
