@@ -1,5 +1,7 @@
 <div class="image-wrapper">
-  <img *ngIf="image"
-       [src]="image"
+  @if (image){
+  <img [src]="image"
        alt="Post image" />
+  }
+
 </div>

@@ -1,4 +1,24 @@
-<app-search-bar (name)="getName($event)">
-</app-search-bar>
-<app-blog [filterText]="filterText">
-</app-blog>
+<div class="mb-3 d-flex gap-2">
+  <button class="btn btn-primary" (click)="toggleForm()">
+    {{ showForm ? 'Close form' : 'Add post' }}
+  </button>
+
+  <button class="btn btn-secondary" (click)="toggleGallery()">
+    {{ showGallery ? 'Close gallery' : 'Gallery' }}
+  </button>
+
+  <button class="btn btn-outline-dark" (click)="refreshPosts()">
+    Refresh
+  </button>
+</div>
+
+@if (showForm) {
+<app-add-post></app-add-post>
+}
+
+@if (showGallery) {
+<app-gallery></app-gallery>
+}
+<app-search-bar (name)="getName($event)"></app-search-bar>
+
+<app-blog [filterText]="filterText"></app-blog>

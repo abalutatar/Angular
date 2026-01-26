@@ -1,4 +1,28 @@
-<img [src]="image">
-<p>
-  {{ text }}
-</p>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+
+      <button class="btn btn-outline-secondary mb-4" routerLink="/">
+        &larr; Powrót do listy
+      </button>
+
+      <div class="card shadow">
+
+        @if (image){
+        <img [src]="image" class="card-img-top" alt="Blog Image">
+        }
+
+        <div class="card-body">
+          <h2 class="card-title">Szczegóły posta</h2>
+          <hr>
+          <p class="card-text" style="white-space: pre-wrap;">{{ text }}</p>
+
+        </div>
+        <div class="card-footer text-muted">
+          ID posta: {{ route.snapshot.paramMap.get('id') }}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

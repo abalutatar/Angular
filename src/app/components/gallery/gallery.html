@@ -6,11 +6,11 @@
          (click)="open(img)"
          style="cursor: pointer; min-height: 100px; background: #eee" />
   </div>
-
-  <div class="col-12" *ngIf="imagesList?.length === 0">
+  @if (imagesList?.length === 0){
+  <div class="col-12" >
     <p class="alert alert-info">Brak zdjęć do wyświetlenia w postach.</p>
   </div>
-
+  }
 </div>
 
 <ng-template #loading>

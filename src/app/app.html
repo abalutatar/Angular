@@ -1,19 +1,5 @@
 <div class="container mt-4">
 
-  <div class="mb-3">
-    <button class="btn btn-primary me-2" (click)="toggleForm()">
-      {{ showForm ? 'Close form' : 'Add post' }}
-    </button>
-
-    <button class="btn btn-secondary" (click)="toggleGallery()">
-      {{ showGallery ? 'Close gallery' : 'Gallery' }}
-    </button>
-  </div>
-
-  <app-add-post *ngIf="showForm"></app-add-post>
-
-  <app-gallery *ngIf="showGallery"></app-gallery>
-
-  <app-blog-home></app-blog-home>
+<router-outlet></router-outlet>
 
 </div>

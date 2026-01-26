@@ -1,10 +1,12 @@
 <div class="card mb-3">
-  <img *ngIf="image" [src]="image" class="card-img-top" />
-
+  <app-blog-item-image [image]="image" />
   <div class="card-body">
-    <app-blog-item-text [text]="text"></app-blog-item-text>
+    <app-blog-item-text [text]="text" [id]="id"></app-blog-item-text>
 
-    <app-comments-section *ngIf="id" [postId]="id">
+    @if (id){
+    <app-comments-section [postId]="id">
     </app-comments-section>
+    }
+
   </div>
 </div>
