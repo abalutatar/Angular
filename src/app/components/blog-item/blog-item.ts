@@ -16,6 +16,7 @@ export class BlogItem {
   @Input() image?: string;
   @Input() text?: string;
   @Input() id: string = '';
+  @Input() title?: string;
   //@Input() post!: any;
 
   constructor(private favoritesService: FavoritesService) { }

@@ -2,15 +2,22 @@
   <h2>Logowanie</h2>
   <form autocomplete="off">
     <div class="mb-3">
-      <label class="form-label">Login</label>
-      <input [(ngModel)]="credentials.login" type="text"
-             class="form-control" name="username" placeholder="Nazwa użytkownika">
+      <label class="form-label">Email</label>
+      <input [(ngModel)]="credentials.email"
+             type="email"
+             class="form-control"
+             name="email"
+             required
+             placeholder="Email użytkownika">
     </div>
     <div class="mb-3">
       <label class="form-label">Hasło</label>
-      <input [(ngModel)]="credentials.password" type="password"
-             class="form-control" name="password" placeholder="Hasło">
-    </div>
+      <input [(ngModel)]="credentials.password"
+             type="password"
+             class="form-control"
+             name="password"
+             required
+             placeholder="Hasło"> </div>
     @if (loginError) {
     <div class="alert alert-danger">Nieprawidłowy login lub hasło</div>
     }

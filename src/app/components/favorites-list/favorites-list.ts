@@ -21,13 +21,34 @@ export class FavoritesListComponent implements OnInit {
     private dataService: DataService,
     private favService: FavoritesService
   ) { }
-
+  /*
   ngOnInit() {
     const favIds = this.favService.getFavorites();
-
+    console.log('ID zapisane w ulubionych:', favIds);
     // Pobieramy dane i filtrujemy je w locie
     this.favoritePosts$ = this.dataService.getAll().pipe(
+      console.log('Wszystkie posty z API:', posts);
       map((posts: any[]) => posts.filter(p => favIds.includes(p._id)))
     );
-  }
+  }*/
+  ngOnInit() {
+  const favIds = this.favService.getFavorites();
+  console.log('1. ID pobrane z serwisu ulubionych:', favIds);
+
+  this.favoritePosts$ = this.dataService.getAll().pipe(
+    map((posts: any[]) => {
+      console.log('2. Wszystkie posty pobrane z DataService:', posts);
+      
+      // Filtrowanie z dodatkowym sprawdzeniem nazw pól
+      const filtered = posts.filter(p => {
+        // Sprawdzamy czy post ma _id lub id i czy favIds je zawiera
+        const postId = p._id || p.id;
+        return favIds.includes(postId);
+      });
+
+      console.log('3. Posty po przefiltrowaniu:', filtered);
+      return filtered;
+    })
+  );
+}
 }

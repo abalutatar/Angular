@@ -1,7 +1,7 @@
 <div class="container mt-5">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2>Moje ulubione posty</h2>
-    <a routerLink="/" class="btn btn-outline-secondary">
+    <a routerLink="/blog" class="btn btn-outline-secondary">
       &larr; Powrót do strony głównej
     </a>
   </div>
@@ -9,7 +9,9 @@
   <hr>
 
   <div class="row g-4">
+    <p>Liczba znalezionych ulubionych: {{ (favoritePosts$ | async)?.length }}</p>
     @for (post of (favoritePosts$ | async); track post._id) {
+
     <div class="col-md-4">
       <app-blog-item [image]="post.image"
                      [text]="post.text"

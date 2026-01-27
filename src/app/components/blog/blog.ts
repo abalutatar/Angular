@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { DataService } from "../../services/data";
 import { BlogItem } from "../blog-item/blog-item";
 import { CommonModule } from "@angular/common";
@@ -31,7 +31,8 @@ export class BlogComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private ratingService: RatingService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -45,21 +46,19 @@ export class BlogComponent implements OnInit {
 
   getAll() {
     this.service.getAll().subscribe(response => {
+      console.log('Dane z API:', response);
       this.items$ = response;
+      this.cdr.detectChanges();
     });
   }
 
   onPageChange(page: number): void {
     console.log('BlogComponent: Zmieniam stronę na:', page);
 
-    // 1. Aktualizujemy wartość
     this.currentPage = page;
 
-    // 2. KLUCZOWE: Tworzymy nową referencję tablicy. 
-    // To "budzi" Angulara i zmusza go do ponownego przeliczenia Pipe'a z NOWĄ wartością currentPage.
     this.items$ = [...this.items$];
 
-    // 3. Aktualizacja URL (opcjonalna dla działania, ale wymagana w zadaniu)
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { page: page },
@@ -67,14 +66,10 @@ export class BlogComponent implements OnInit {
     });
   }
   applyLogic() {
-    // 1. Filtrowanie po tekście
     let result = this.items$.filter(item =>
       item.text?.toLowerCase().includes(this.filterText.toLowerCase())
     );
 
-    // 2. Opcjonalnie: Tutaj możesz dodać sortowanie result.sort(...)
-
-    // 3. Paginacja (wycinanie kawałka dla pagedItems)
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     this.pagedItems = result.slice(startIndex, startIndex + this.itemsPerPage);
   }
@@ -83,10 +78,10 @@ export class BlogComponent implements OnInit {
       this.items$.sort((a, b) => {
         const ratingA = this.ratingService.getAverage(a._id).avg;
         const ratingB = this.ratingService.getAverage(b._id).avg;
-        return ratingB - ratingA; // Od najwyższej oceny
+        return ratingB - ratingA;
       });
     }
-    this.applyLogic(); // Wywołaj swoją metodę do odświeżenia pagedItems
+    this.applyLogic();
   }
   
 

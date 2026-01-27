@@ -1,12 +1,20 @@
 import { HttpInterceptorFn } from '@angular/common/http';
+import { inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const token = localStorage.getItem('token');
+  const platformId = inject(PLATFORM_ID);
+  let token: string | null = null;
+
+  // Sprawdzamy, czy kod uruchamia się w przeglądarce
+  if (isPlatformBrowser(platformId)) {
+    token = localStorage.getItem('token');
+  }
 
   if (token) {
     const authReq = req.clone({
       setHeaders: {
-        'x-auth-token': `Bearer ${token}`
+        'x-auth-token': token // Zazwyczaj samo token, lub Bearer ${token} zależnie od backendu
       }
     });
     return next(authReq);

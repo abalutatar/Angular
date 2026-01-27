@@ -17,13 +17,14 @@ export class AddPost {
   constructor(private dataService: DataService) {
     this.postForm = new FormGroup({
       title: new FormControl('', Validators.required),
-      text: new FormControl('', Validators.required)
+      text: new FormControl('', Validators.required),
+      image: new FormControl('')
     });
   }
 
   onSubmit() {
     if (this.postForm.valid) {
-      const { title, text } = this.postForm.value;
+      const { title, text, image } = this.postForm.value;
       /*
       this.dataService.addPost(title, text);
 
@@ -31,7 +32,7 @@ export class AddPost {
       this.postForm.reset();
 
       setTimeout(() => this.message = '', 3000);*/
-     this.dataService.addPost(title, text).subscribe({
+     this.dataService.addPost(title, text,image).subscribe({
   next: (response) => {
     console.log('Sukces!', response);
     this.message = 'Post dodany pomyślnie!';

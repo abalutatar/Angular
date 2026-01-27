@@ -2,7 +2,7 @@
 import {ActivatedRoute, RouterModule} from '@angular/router';
 import {DataService} from "../../services/data";
 import { CommonModule } from '@angular/common';
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
 @Component({
   selector: 'app-blog-item-details',
   standalone: true,
@@ -14,9 +14,10 @@ import { Component, OnInit} from '@angular/core';
 export class BlogItemDetailsComponent implements OnInit {
  public image: string = '';
  public text: string = '';
+ public title: string = '';
 
 
-  constructor(private service: DataService, public route: ActivatedRoute) {
+  constructor(private service: DataService, public route: ActivatedRoute, private cdr: ChangeDetectorRef) {
  }
 
 
@@ -30,7 +31,8 @@ export class BlogItemDetailsComponent implements OnInit {
        console.log('Dane z serwera:', res);
        this.image = res.image;
        this.text = res.text;
-
+       this.title = res.title || 'Brak tytułu';
+       this.cdr.detectChanges();
        
      });
    });

@@ -12,8 +12,9 @@
 
     <div class="col-md-4">
       <app-blog-item [image]="item.image"
+                     [title]="item.title || 'Bez tytułu'"
                      [text]="item.text"
-                     [id]="item._id">
+                     [id]="item.id">
       </app-blog-item>
     </div>
     }

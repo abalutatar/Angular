@@ -19,7 +19,7 @@ export class AuthService {
   authenticate(credentials: any) {
     const localStorage = this.document.defaultView?.localStorage;
     return this.http.post<Token>(this.url + '/user/auth', {
-      login: credentials.login,
+      email: credentials.email,
       password: credentials.password
     }).pipe(
       map((result: Token | any) => {

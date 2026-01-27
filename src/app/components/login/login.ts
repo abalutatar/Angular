@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class LoginComponent {
   credentials = {
-    login: '',
+    email: '',
     password: ''
   };
   loginError = false;
@@ -27,7 +27,7 @@ export class LoginComponent {
     this.authService.authenticate(this.credentials).subscribe({
       next: (result) => {
         if (result) {
-          this.router.navigate(['/']);
+          this.router.navigate(['/blog']);
         } else {
           this.loginError = true;
         }
