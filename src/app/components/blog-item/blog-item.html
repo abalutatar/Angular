@@ -1,12 +1,23 @@
-<div class="card mb-3">
+<div class="card h-100 shadow-sm position-relative">
+  <button class="btn position-absolute top-0 end-0 m-2 fav-btn z-3"
+          (click)="toggleFavorite()"
+          [title]="isFavorite ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'">
+    <i [class]="isFavorite ? 'fa-solid fa-heart text-danger' : 'fa-regular fa-heart text-white shadow-icon'"></i>
+  </button>
+
   <app-blog-item-image [image]="image" />
-  <div class="card-body">
+
+  <div class="card-body d-flex flex-column">
     <app-blog-item-text [text]="text" [id]="id"></app-blog-item-text>
 
-    @if (id){
-    <app-comments-section [postId]="id">
-    </app-comments-section>
-    }
+    <div class="my-3 py-2 border-top border-bottom">
+      <app-rating [postId]="id"></app-rating>
+    </div>
 
+    @if (id) {
+    <div class="mt-auto">
+      <app-comments-section [postId]="id"></app-comments-section>
+    </div>
+    }
   </div>
 </div>

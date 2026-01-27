@@ -4,10 +4,11 @@ import {BlogComponent} from "../blog/blog";
 import { AddPost } from '../add-post/add-post';
 import { CommonModule } from '@angular/common';
 import { Gallery } from '../gallery/gallery';
+import { RouterLink } from '@angular/router';
 @Component({
  selector: 'app-blog-home',
  standalone: true,
- imports: [ SearchBarComponent, BlogComponent, AddPost, CommonModule, Gallery ],
+ imports: [ SearchBarComponent, BlogComponent, AddPost, CommonModule, Gallery, RouterLink ],
  templateUrl: './blog-home.html',
  styleUrl: './blog-home.scss'
 })

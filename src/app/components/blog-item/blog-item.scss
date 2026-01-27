@@ -3,3 +3,24 @@
   display: flex;
   flex-direction: column;
 }
+.card {
+  position: relative; // Kluczowe, by serce było wewnątrz karty
+}
+
+.fav-btn {
+  z-index: 10; // Aby przycisk był nad zdjęciem
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  padding: 0;
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  .shadow-icon {
+    // Dodaje cień, aby białe serce było widoczne na jasnych zdjęciach
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.7));
+  }
+}

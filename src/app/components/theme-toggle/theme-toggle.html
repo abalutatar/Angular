@@ -1,0 +1,7 @@
+<button (click)="toggle()" class="theme-btn" [title]="(isDark$ | async) ? 'Tryb jasny' : 'Tryb ciemny'">
+  @if (isDark$ | async) {
+  <i class="fa-solid fa-sun text-warning"></i>
+  } @else {
+  <i class="fa-solid fa-moon text-primary"></i>
+  }
+</button>

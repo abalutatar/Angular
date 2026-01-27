@@ -1,0 +1,27 @@
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Moje ulubione posty</h2>
+    <a routerLink="/" class="btn btn-outline-secondary">
+      &larr; Powrót do strony głównej
+    </a>
+  </div>
+
+  <hr>
+
+  <div class="row g-4">
+    @for (post of (favoritePosts$ | async); track post._id) {
+    <div class="col-md-4">
+      <app-blog-item [image]="post.image"
+                     [text]="post.text"
+                     [id]="post._id">
+      </app-blog-item>
+    </div>
+    } @empty {
+    <div class="col-12 text-center mt-5">
+      <div class="alert alert-light border shadow-sm">
+        <p class="mb-0 text-muted">Nie masz jeszcze żadnych ulubionych postów.</p>
+      </div>
+    </div>
+    }
+  </div>
+</div>
