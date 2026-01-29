@@ -7,7 +7,7 @@ import { FavoritesListComponent } from "./components/favorites-list/favorites-li
 import { authGuard } from './services/auth.guard';
 import { LoginComponent } from './components/login/login';
 import { SignupComponent } from './components/signup/signup';
-
+import { EditPostComponent } from './components/edit-post/edit-post';
 export const routes: Routes = [
    {
 	path: 'blog',
@@ -38,6 +38,7 @@ export const routes: Routes = [
 	path: 'signup',
 	loadComponent: () => import('./components/signup/signup')
   	.then(m => m.SignupComponent)
-  }
+  },
+  { path: 'edit-post/:id', component: EditPostComponent }
 
 ];

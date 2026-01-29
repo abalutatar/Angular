@@ -22,9 +22,8 @@ export class BlogComponent implements OnInit {
   public pagedItems: any[] = [];
   @Input() filterText: string = '';
 
- //constructor(private service: DataService) {  }
   public currentPage = 1;
-  public itemsPerPage = 20;
+  public itemsPerPage = 21;
 
   constructor(
     private service: DataService,
@@ -36,7 +35,6 @@ export class BlogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    //this.items$ = this.service.getAll();
     this.route.queryParams.subscribe(params => {
       const page = Number(params['page']);
       this.currentPage = page > 0 ? page : 1;

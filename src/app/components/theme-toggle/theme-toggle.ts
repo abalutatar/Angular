@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   styleUrl: './theme-toggle.scss',
 })
 export class ThemeToggleComponent {
-  //isDark$ = this.themeService.darkMode$;
+  
   isDark$: Observable<boolean>;
   constructor(private themeService: ThemeService) { this.isDark$ = this.themeService.darkMode$; }
 

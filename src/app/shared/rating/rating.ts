@@ -39,7 +39,7 @@ export class RatingComponent implements OnInit {
   onStarClick(rating: number): void {
     if (!this.readonly) {
       this.ratingService.saveRating(this.postId, rating);
-      this.loadStats(); // Odśwież statystyki natychmiast
+      this.loadStats(); 
     }
   }
 }

@@ -18,7 +18,6 @@ export class ThemeService {
       if (saved !== null) {
         this.setDarkMode(saved === 'dark');
       } else {
-        // Detekcja preferencji systemowych
         const prefersDark = window.matchMedia(
           '(prefers-color-scheme: dark)'
         ).matches;

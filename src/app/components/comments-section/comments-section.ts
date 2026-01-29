@@ -2,8 +2,9 @@ import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CommentsService } from '../../services/comments';
-import { AuthService } from '../../services/auth'; // Importuj swój serwis auth
-
+import { AuthService } from '../../services/auth';
+import { ThemeService } from '../../services/theme'; 
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-comments-section',
   standalone: true,
@@ -17,15 +18,17 @@ export class CommentsSection implements OnInit {
   @Input() limit: number | null = null; 
 
 
-  comments: any[] = []; // Używamy any lub zaktualizowanego interfejsu
+  comments: any[] = [];
   newText: string = '';
   currentUserEmail: string | null = null;
   currentUserName: string | null = null;
+  isDark$: Observable<boolean>;
   constructor(
     private commentsService: CommentsService,
     private authService: AuthService,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private cdr: ChangeDetectorRef,
+    private themeService: ThemeService
+  ) {this.isDark$ = this.themeService.darkMode$;}
 
   ngOnInit() {
     this.loadComments();
@@ -65,10 +68,9 @@ export class CommentsSection implements OnInit {
 get displayComments() {
   if (!this.comments) return [];
   
-  // Kopiujemy tablicę, żeby nie mutować oryginału, i odwracamy (najnowsze na górze)
+  
   const sorted = [...this.comments].reverse(); 
   
-  // Jeśli mamy ustawiony limit, tniemy tablicę
   return this.limit ? sorted.slice(0, this.limit) : sorted;
 }
 }

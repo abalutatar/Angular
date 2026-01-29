@@ -9,8 +9,7 @@ import { DOCUMENT } from '@angular/common';
   providedIn: 'root'
 })
 export class AuthService {
-  private url = 'http://localhost:3101/api';  // Ten sam port co DataService
-
+  private url = 'http://localhost:3101/api';  
   constructor(
     private http: HttpClient,
     @Inject(DOCUMENT) private document: Document
@@ -77,7 +76,6 @@ export class AuthService {
   getLoggedUserName(): string | null {
     const user = this.currentUser;
     console.log("Uzytkownik z getLoggedUserName: ",  user.name);
-    // Sprawdź w konsoli logując user, czy pole nazywa się 'login' czy 'name'
     return user ? user.name : null; 
   }
 

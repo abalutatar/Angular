@@ -8,19 +8,42 @@
 }
 
 .fav-btn {
-  z-index: 10; // Aby przycisk był nad zdjęciem
   background: transparent;
   border: none;
-  font-size: 1.5rem;
   padding: 0;
 
-  &:focus {
-    outline: none;
-    box-shadow: none;
-  }
+  .like-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
 
-  .shadow-icon {
-    // Dodaje cień, aby białe serce było widoczne na jasnych zdjęciach
-    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.7));
+    &:hover {
+      transform: scale(1.15);
+    }
+
+    i {
+      font-size: 2.5rem; 
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+
+      &.heart-empty {
+        color: rgba(255, 255, 255, 0.6); // Półprzezroczyste białe serce, gdy brak lajka
+        -webkit-text-stroke: 1px rgba(0,0,0,0.2); // Delikatny obrys
+      }
+    }
+
+    .likes-overlay {
+      position: absolute;
+      // Przesunięcie, aby liczba była w centrum "masy" serca (nieco wyżej niż środek geometryczny)
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 800;
+      pointer-events: none; // Kliknięcia przechodzą do przycisku
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8); // Mocniejszy cień dla czytelności liczby
+    }
   }
 }

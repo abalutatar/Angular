@@ -8,22 +8,34 @@
 
   <hr>
 
+  @if (favoritePosts$ | async; as posts) {
   <div class="row g-4">
-    <p>Liczba znalezionych ulubionych: {{ (favoritePosts$ | async)?.length }}</p>
-    @for (post of (favoritePosts$ | async); track post._id) {
+    <p class="text-muted">Liczba znalezionych ulubionych: {{ posts.length }}</p>
 
+    @for (post of posts; track post.id) {
     <div class="col-md-4">
       <app-blog-item [image]="post.image"
                      [text]="post.text"
-                     [id]="post._id">
+                     [title]="post.title"
+                     [id]="post.id"
+                     [likes]="post.likes">
       </app-blog-item>
     </div>
     } @empty {
     <div class="col-12 text-center mt-5">
-      <div class="alert alert-light border shadow-sm">
+      <div class="alert alert-light border shadow-sm py-5">
+        <i class="fa-regular fa-heart fa-3x text-light mb-3"></i>
         <p class="mb-0 text-muted">Nie masz jeszcze żadnych ulubionych postów.</p>
+        <a routerLink="/blog" class="btn btn-primary mt-3">Przeglądaj bloga</a>
       </div>
     </div>
     }
   </div>
+  } @else {
+  <div class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Ładowanie...</span>
+    </div>
+  </div>
+  }
 </div>

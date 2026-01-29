@@ -1,13 +1,16 @@
-<div class="comments-section mt-4">
+<div class="comments-section mt-4" [ngClass]="{'text-light': (isDark$ | async)}">
   <h6 class="border-bottom pb-2">Komentarze ({{ comments.length }})</h6>
 
-  <div *ngFor="let comment of displayComments" class="mb-2 p-3 border rounded bg-light d-flex justify-content-between align-items-start">
+  <div *ngFor="let comment of displayComments"
+       class="mb-2 p-3 border rounded d-flex justify-content-between align-items-start transition-all"
+       [ngClass]="(isDark$ | async) ? 'bg-dark border-secondary' : 'bg-light border-light'">
+
     <div>
       <div class="mb-1">
-        <strong class="text-primary">{{ comment.name }}</strong>
+        <strong [ngClass]="(isDark$ | async) ? 'text-info' : 'text-primary'">{{ comment.name }}</strong>
         <small class="text-muted ms-2">{{ comment.date | date:'short' }}</small>
       </div>
-      <p class="mb-0 text-dark">{{ comment.text }}</p>
+      <p class="mb-0" [ngClass]="(isDark$ | async) ? 'text-white-50' : 'text-dark'">{{ comment.text }}</p>
     </div>
 
     <button *ngIf="currentUserEmail === comment.email"
@@ -18,9 +21,13 @@
     </button>
   </div>
 
-  <form (ngSubmit)="addComment()" class="mt-3 shadow-sm p-3 bg-white rounded border">
+  <form (ngSubmit)="addComment()"
+        class="mt-3 shadow-sm p-3 rounded border transition-all"
+        [ngClass]="(isDark$ | async) ? 'bg-dark border-secondary text-light' : 'bg-white border-light'">
+
     <div class="mb-2">
       <textarea class="form-control"
+                [ngClass]="(isDark$ | async) ? 'bg-secondary text-white border-dark shadow-none' : ''"
                 placeholder="Napisz co myślisz..."
                 [(ngModel)]="newText"
                 name="text"
@@ -28,6 +35,7 @@
                 required>
       </textarea>
     </div>
+
     <div class="d-flex justify-content-between align-items-center">
       <small class="text-muted">Komentujesz jako: <strong>{{ currentUserName }}</strong></small>
       <button type="submit" class="btn btn-primary btn-sm" [disabled]="!newText.trim()">

@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataService, Post } from '../../services/data';
-import { map } from 'rxjs/operators'; // Required for transformation
+import { map } from 'rxjs/operators'; 
 import { Observable } from 'rxjs';
 
 
@@ -19,7 +19,6 @@ export class Gallery implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    // Przypisujemy strumień danych bezpośrednio do zmiennej
     this.images$ = this.dataService.getAll().pipe(
       map(posts => posts
         .map(p => p.image)

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DataService } from '../../services/data';
 import { CommonModule } from '@angular/common';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-add-post',
   standalone: true,
@@ -14,13 +14,13 @@ export class AddPost {
   postForm: FormGroup;
   message: string = '';
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private router: Router) {
     this.postForm = new FormGroup({
-      // Tytuł: wymagany, minimum 5 znaków
+      // Tytuł: minimum 5 znaków
       title: new FormControl('', [Validators.required, Validators.minLength(5)]),
-      // Treść: wymagana, minimum 10 znaków
+      // Treść: minimum 10 znaków
       text: new FormControl('', [Validators.required, Validators.minLength(10)]),
-      // Image: opcjonalny, ale jeśli wpisany, musi pasować do formatu URL
+      // Image: opcjonalny, jeśli wpisany, musi pasować do formatu URL
       image: new FormControl('', [Validators.pattern('https?://.+')])
     });
   }

@@ -1,14 +1,14 @@
 <div class="mb-3 d-flex gap-2">
   <button class="btn btn-primary" (click)="toggleForm()">
-    {{ showForm ? 'Close form' : 'Add post' }}
+    {{ showForm ? 'Zamknij formularz' : 'Dodaj post' }}
   </button>
 
   <button class="btn btn-secondary" (click)="toggleGallery()">
-    {{ showGallery ? 'Close gallery' : 'Gallery' }}
+    {{ showGallery ? 'Zamknij galerię' : 'Galeria' }}
   </button>
 
-  <button class="btn btn-outline-dark" (click)="refreshPosts()">
-    Refresh
+  <button class="btn btn-info" (click)="refreshPosts()">
+    Odśwież
   </button>
   <button class="btn btn-danger" routerLink="/favorites">
     <i class="fa-solid fa-heart"></i> Ulubione

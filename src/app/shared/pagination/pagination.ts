@@ -1,4 +1,3 @@
-// src/app/shared/pagination/pagination.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 

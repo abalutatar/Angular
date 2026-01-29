@@ -1,0 +1,52 @@
+<div class="card p-4 mb-4 shadow-sm">
+  <h4 class="mb-3">Dodaj Nowy Post</h4>
+
+  @if (message) {
+  <div class="alert" [ngClass]="message.includes('Błąd') ? 'alert-danger' : 'alert-success'">
+    {{ message }}
+  </div>
+  }
+
+  <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="title" class="form-label fw-bold">Tytuł</label>
+      <input id="title" type="text" class="form-control" formControlName="title"
+             [class.is-invalid]="postForm.get('title')?.invalid && postForm.get('title')?.touched">
+
+      <div class="invalid-feedback">
+        @if (postForm.get('title')?.errors?.['required']) {
+        Tytuł jest wymagany.
+        } @else if (postForm.get('title')?.errors?.['minlength']) {
+        Tytuł musi mieć co najmniej 5 znaków.
+        }
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="image" class="form-label fw-bold">URL Obrazka (opcjonalnie)</label>
+      <input id="image" type="text" class="form-control" formControlName="image"
+             placeholder="http://example.com/image.jpg"
+             [class.is-invalid]="postForm.get('image')?.invalid && postForm.get('image')?.touched">
+      <div class="form-text">Link do zdjęcia (musi zaczynać się od http:// lub https://).</div>
+      <div class="invalid-feedback">Niepoprawny format adresu URL.</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="text" class="form-label fw-bold">Treść</label>
+      <textarea id="text" class="form-control" formControlName="text" rows="4"
+                [class.is-invalid]="postForm.get('text')?.invalid && postForm.get('text')?.touched"></textarea>
+
+      <div class="invalid-feedback">
+        @if (postForm.get('text')?.errors?.['required']) {
+        Treść posta jest wymagana.
+        } @else if (postForm.get('text')?.errors?.['minlength']) {
+        Opisz coś więcej! (minimum 10 znaków).
+        }
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-success w-100 py-2 fw-bold" [disabled]="postForm.invalid">
+      <i class="fa-solid fa-paper-plane me-2"></i> Opublikuj Post
+    </button>
+  </form>
+</div>

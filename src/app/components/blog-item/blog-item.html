@@ -1,8 +1,14 @@
 <div class="card h-100 shadow-sm position-relative">
   <button class="btn position-absolute top-0 end-0 m-2 fav-btn z-3"
-          (click)="toggleFavorite()"
-          [title]="isFavorite ? 'Usuń z ulubionych' : 'Dodaj do ulubionych'">
-    <i [class]="isFavorite ? 'fa-solid fa-heart text-danger' : 'fa-regular fa-heart text-white shadow-icon'"></i>
+          (click)="toggleFavorite(); $event.stopPropagation()">
+
+    <div class="like-wrapper">
+      <i [class]="activeLike ? 'fa-solid fa-heart text-danger' : 'fa-solid fa-heart heart-empty'"></i>
+
+      @if (likesCount > 0) {
+      <span class="likes-overlay">{{ likesCount }}</span>
+      }
+    </div>
   </button>
 
   <app-blog-item-image [image]="image" />
@@ -10,7 +16,26 @@
   <div class="card-body d-flex flex-column">
     <h5 class="card-title fw-bold mt-2">{{ title }}</h5>
     <app-blog-item-text [text]="text" [id]="id"></app-blog-item-text>
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      @if (id) {
+      <a class="btn btn-primary" [routerLink]="['/blog/detail', id]">
+        Więcej
+      </a>
+      }
 
+      @if (isOwner) {
+      <div class="d-flex gap-2">
+        <a class="btn btn-outline-secondary" [routerLink]="['/edit-post', id]">
+          <i class="fa-solid fa-pen-to-square"></i>
+        </a>
+
+        <button class="btn btn-outline-danger" (click)="onDelete(); $event.stopPropagation()">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+
+      </div>
+      }
+    </div>
     <div class="my-3 py-2 border-top border-bottom">
       <app-rating [postId]="id"></app-rating>
     </div>

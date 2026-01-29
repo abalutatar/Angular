@@ -1,37 +1,25 @@
-import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from './auth'; 
+import { Observable, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class FavoritesService {
-  private readonly STORAGE_KEY = 'blog_favorites';
+  private url = 'http://localhost:3101/api/post';
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
-
-
-  getFavorites(): string[] {
-    if (isPlatformBrowser(this.platformId)) {
-      const data = localStorage.getItem(this.STORAGE_KEY);
-      return data ? JSON.parse(data) : [];
-    }
-    return [];
-
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) { }
+  toggleLike(postId: string): Observable<any> {
+    return this.http.post(`${this.url}/${postId}/like`, {});
   }
 
-  toggleFavorite(id: string): void {
-    let favs = this.getFavorites();
-    if (favs.includes(id)) {
-      favs = favs.filter(favId => favId !== id);
-    } else {
-      favs.push(id);
-    }
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(favs));
-    }
+isLikedByMe(postLikes: string[]): boolean {
+  const user = this.authService.currentUser;
+  if (!user || !user.userId || !postLikes) return false;
 
-  }
-
-  isFavorite(id: string): boolean {
-    return this.getFavorites().includes(id);
-  }
+  const myId = String(user.userId);
+  return postLikes.some(likeId => String(likeId) === myId);
+}
 }

@@ -6,7 +6,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const platformId = inject(PLATFORM_ID);
   let token: string | null = null;
 
-  // Sprawdzamy, czy kod uruchamia się w przeglądarce
   if (isPlatformBrowser(platformId)) {
     token = localStorage.getItem('token');
   }

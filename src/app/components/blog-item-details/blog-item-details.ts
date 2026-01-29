@@ -8,7 +8,6 @@ import { CommentsSection } from '../comments-section/comments-section';
   selector: 'app-blog-item-details',
   standalone: true,
   imports: [CommonModule, RouterModule, CommentsSection], 
- // providers: [DataService],
   templateUrl: './blog-item-details.html',
   styleUrl: './blog-item-details.scss',
 })
@@ -27,7 +26,7 @@ export class BlogItemDetailsComponent implements OnInit {
   this.route.paramMap.subscribe(params => {
     const routeId = params.get('id');
     if (routeId) {
-      this.id = routeId; // Przypisujemy ID do zmiennej klasowej
+      this.id = routeId; 
       
       this.service.getById(routeId).subscribe({
         next: (res: any) => {
@@ -35,7 +34,7 @@ export class BlogItemDetailsComponent implements OnInit {
           this.text = res.text;
           this.title = res.title || 'Brak tytułu';
           
-          // To jest kluczowe, aby Angular zauważył zmiany danych
+          
           this.cdr.markForCheck(); 
           this.cdr.detectChanges();
         },
