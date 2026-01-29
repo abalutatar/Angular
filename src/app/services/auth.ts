@@ -68,4 +68,18 @@ export class AuthService {
     const localStorage = this.document.defaultView?.localStorage;
     return localStorage?.getItem('token') || null;
   }
+  getLoggedUserEmail(): string | null {
+    const user = this.currentUser;
+    // Sprawdź w konsoli logując user, czy pole nazywa się 'login' czy 'name'
+    return user ? user.email : null; 
+  }
+
+  getLoggedUserName(): string | null {
+    const user = this.currentUser;
+    console.log("Uzytkownik z getLoggedUserName: ",  user.name);
+    // Sprawdź w konsoli logując user, czy pole nazywa się 'login' czy 'name'
+    return user ? user.name : null; 
+  }
+
+
 }

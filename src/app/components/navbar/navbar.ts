@@ -14,9 +14,7 @@ export class NavbarComponent {
   constructor(
     public authService: AuthService,
     private router: Router
-  ) {
-      console.log('NAVBAR INIT');
-    
+  ) {    
 }
 
   signOut() {

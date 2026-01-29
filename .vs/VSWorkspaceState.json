@@ -4,13 +4,13 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
+    "\\src\\app\\components\\favorites-list",
     "\\src\\app\\components\\login",
-    "\\src\\app\\components\\navbar",
-    "\\src\\app\\components\\signup",
-    "\\src\\app\\models",
     "\\src\\app\\services",
-    "\\src\\app\\services\\auth"
+    "\\src\\app\\services\\auth",
+    "\\src\\app\\shared",
+    "\\src\\app\\shared\\rating"
   ],
-  "SelectedNode": "\\src\\app\\app.config.ts",
+  "SelectedNode": "\\src\\app\\services\\auth\\auth.interceptor.ts",
   "PreviewInSolutionExplorer": false
 }
