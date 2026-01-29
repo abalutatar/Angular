@@ -1,34 +1,43 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth';
-import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-
+import { Router, RouterModule } from '@angular/router';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [FormsModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './signup.html',
   styleUrl: './signup.scss'
 })
-export class SignupComponent {
-  credentials = {
-    name: '',
-    email: '',
-    password: ''
-  };
+export class SignupComponent implements OnInit {
+  signupForm!: FormGroup;
 
   constructor(
     private authService: AuthService,
     private router: Router
   ) { }
-  create() {
-    this.authService.createOrUpdate(this.credentials).subscribe({
-      next: () => {
-        this.router.navigate(['/login']);
-      },
-      error: (err) => {
-        console.error('Błąd rejestracji:', err);
-      }
+
+  ngOnInit() {
+    this.signupForm = new FormGroup({
+      name: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(15)])
     });
+  }
+create() {
+    if (this.signupForm.valid) {
+      this.authService.createOrUpdate(this.signupForm.value).subscribe({
+        next: () => {
+          this.router.navigate(['/login']);
+        },
+        error: (err) => {
+          console.error('Błąd rejestracji:', err);
+          alert('Rejestracja nie powiodła się. Możliwe, że ten e-mail jest już zajęty.');
+        }
+      });
+    } else {
+      this.signupForm.markAllAsTouched();
+    }
   }
 }

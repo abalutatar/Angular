@@ -1,20 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth';
-import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { Router,  RouterModule } from '@angular/router';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './login.html',
   styleUrl: './login.scss'
 })
-export class LoginComponent {
-  credentials = {
-    email: '',
-    password: ''
-  };
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
   loginError = false;
 
   constructor(
@@ -22,19 +20,30 @@ export class LoginComponent {
     private router: Router
   ) { }
 
+  ngOnInit() {
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required])
+    });
+  }
+
   signIn() {
-    this.loginError = false;
-    this.authService.authenticate(this.credentials).subscribe({
-      next: (result) => {
-        if (result) {
-          this.router.navigate(['/blog']);
-        } else {
+    if (this.loginForm.valid) {
+      this.loginError = false;
+      this.authService.authenticate(this.loginForm.value).subscribe({
+        next: (result) => {
+          if (result) {
+            this.router.navigate(['/blog']);
+          } else {
+            this.loginError = true;
+          }
+        },
+        error: () => {
           this.loginError = true;
         }
-      },
-      error: () => {
-        this.loginError = true;
-      }
-    });
+      });
+    } else {
+      this.loginForm.markAllAsTouched();
+    }
   }
 }

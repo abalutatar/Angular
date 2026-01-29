@@ -1,28 +1,48 @@
 <div class="container mt-5">
-  <h2>Logowanie</h2>
-  <form autocomplete="off">
-    <div class="mb-3">
-      <label class="form-label">Email</label>
-      <input [(ngModel)]="credentials.email"
-             type="email"
-             class="form-control"
-             name="email"
-             required
-             placeholder="Email użytkownika">
+  <div class="row justify-content-center">
+    <div class="col-md-5 card p-4 shadow-sm">
+      <h2 class="mb-4">Logowanie</h2>
+
+      <form [formGroup]="loginForm" (ngSubmit)="signIn()" autocomplete="off">
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input type="email"
+                 class="form-control"
+                 formControlName="email"
+                 [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+                 placeholder="Email użytkownika">
+
+          <div class="invalid-feedback">
+            @if (loginForm.get('email')?.errors?.['required']) {
+            Email jest wymagany.
+            } @else if (loginForm.get('email')?.errors?.['email']) {
+            Wprowadź poprawny adres e-mail.
+            }
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Hasło</label>
+          <input type="password"
+                 class="form-control"
+                 formControlName="password"
+                 [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+                 placeholder="Hasło">
+          <div class="invalid-feedback">Hasło jest wymagane.</div>
+        </div>
+
+        @if (loginError) {
+        <div class="alert alert-danger py-2">Nieprawidłowy login lub hasło</div>
+        }
+
+        <button class="btn btn-primary w-100" type="submit" [disabled]="loginForm.invalid">
+          Zaloguj
+        </button>
+
+        <p class="mt-3 text-center small">
+          Nie masz konta? <a routerLink="/signup">Zarejestruj się</a>
+        </p>
+      </form>
     </div>
-    <div class="mb-3">
-      <label class="form-label">Hasło</label>
-      <input [(ngModel)]="credentials.password"
-             type="password"
-             class="form-control"
-             name="password"
-             required
-             placeholder="Hasło"> </div>
-    @if (loginError) {
-    <div class="alert alert-danger">Nieprawidłowy login lub hasło</div>
-    }
-    <button (click)="signIn()" class="btn btn-primary" type="button">
-      Zaloguj
-    </button>
-  </form>
+  </div>
 </div>

@@ -16,22 +16,19 @@ export class AddPost {
 
   constructor(private dataService: DataService) {
     this.postForm = new FormGroup({
-      title: new FormControl('', Validators.required),
-      text: new FormControl('', Validators.required),
-      image: new FormControl('')
+      // Tytuł: wymagany, minimum 5 znaków
+      title: new FormControl('', [Validators.required, Validators.minLength(5)]),
+      // Treść: wymagana, minimum 10 znaków
+      text: new FormControl('', [Validators.required, Validators.minLength(10)]),
+      // Image: opcjonalny, ale jeśli wpisany, musi pasować do formatu URL
+      image: new FormControl('', [Validators.pattern('https?://.+')])
     });
   }
 
   onSubmit() {
     if (this.postForm.valid) {
       const { title, text, image } = this.postForm.value;
-      /*
-      this.dataService.addPost(title, text);
-
-      this.message = 'Post dodany pomyślnie!';
-      this.postForm.reset();
-
-      setTimeout(() => this.message = '', 3000);*/
+   
      this.dataService.addPost(title, text,image).subscribe({
   next: (response) => {
     console.log('Sukces!', response);
@@ -40,7 +37,6 @@ export class AddPost {
   },
   error: (err) => {
     this.message = 'Błąd krytyczny!';
-    // To wypisze błąd niezależnie od formatu
     console.dir(err); 
     alert('Błąd serwera: ' + (err.message || 'Brak połączenia'));
   }

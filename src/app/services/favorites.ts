@@ -19,7 +19,6 @@ export class FavoritesService {
   }
 
   toggleFavorite(id: string): void {
-    // TODO: Implementacja przełączania
     let favs = this.getFavorites();
     if (favs.includes(id)) {
       favs = favs.filter(favId => favId !== id);
@@ -33,7 +32,6 @@ export class FavoritesService {
   }
 
   isFavorite(id: string): boolean {
-    // TODO: Sprawdzenie czy post jest ulubiony
     return this.getFavorites().includes(id);
   }
 }
